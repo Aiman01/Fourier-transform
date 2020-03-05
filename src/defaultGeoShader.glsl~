@@ -1,0 +1,20 @@
+//GL_MAX_GEOMETRY_OUTPUT_VERTICES
+#version 330 core
+
+layout (points) in;
+layout (line_strip, max_vertices = 1000) out;
+uniform int numOfLines;
+
+
+uniform float verticesX[1000];
+uniform float verticesY[1000];
+
+void main(){
+ for(int i=0;i<1000;i++){
+  gl_Position=vec4(verticesX[i], verticesY[i], 0, 1);
+  EmitVertex();
+ }
+
+
+ EndPrimitive();
+}

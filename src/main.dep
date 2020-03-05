@@ -1,0 +1,38 @@
+main.o: src/main.c src/context.h c:\mingw\include\stdio.h \
+ c:\mingw\include\_mingw.h c:\mingw\include\msvcrtver.h \
+ c:\mingw\include\w32api.h c:\mingw\include\sdkddkver.h \
+ c:\mingw\include\features.h \
+ c:\mingw\lib\gcc\mingw32\8.2.0\include\stddef.h \
+ c:\mingw\include\sys/types.h \
+ c:\mingw\lib\gcc\mingw32\8.2.0\include\stdarg.h \
+ c:\mingw\include\stdlib.h c:\mingw\include\alloca.h \
+ src/Include/glad/glad.h c:\mingw\include\windows.h \
+ c:\mingw\include\windef.h c:\mingw\include\winnt.h \
+ c:\mingw\include\winerror.h c:\mingw\include\string.h \
+ c:\mingw\include\strings.h c:\mingw\include\wchar.h \
+ c:\mingw\include\basetsd.h c:\mingw\include\pshpack4.h \
+ c:\mingw\include\poppack.h c:\mingw\include\wincon.h \
+ c:\mingw\include\winbase.h c:\mingw\include\wingdi.h \
+ c:\mingw\include\winuser.h c:\mingw\include\dbt.h \
+ c:\mingw\include\winnls.h c:\mingw\include\winver.h \
+ c:\mingw\include\winnetwk.h c:\mingw\include\winreg.h \
+ c:\mingw\include\reason.h c:\mingw\include\winsvc.h \
+ src/Include/glad/../KHR/khrplatform.h \
+ c:\mingw\lib\gcc\mingw32\8.2.0\include\stdint.h \
+ c:\mingw\include\stdint.h c:\mingw\include\glfw\glfw3.h src/objects.h \
+ src/renderer.h src/shader.h src/Include/cglm/cglm.h \
+ src/Include/cglm/common.h c:\mingw\include\math.h \
+ c:\mingw\lib\gcc\mingw32\8.2.0\include\float.h c:\mingw\include\float.h \
+ c:\mingw\lib\gcc\mingw32\8.2.0\include\stdbool.h \
+ src/Include/cglm/types.h src/Include/cglm/simd/intrin.h \
+ src/Include/cglm/vec3.h src/Include/cglm/vec4.h \
+ src/Include/cglm/vec4-ext.h src/Include/cglm/vec3-ext.h \
+ src/Include/cglm/util.h src/Include/cglm/mat4.h src/Include/cglm/mat3.h \
+ src/Include/cglm/affine.h src/Include/cglm/affine-mat.h \
+ src/Include/cglm/cam.h src/Include/cglm/plane.h \
+ src/Include/cglm/frustum.h src/Include/cglm/quat.h \
+ src/Include/cglm/euler.h src/Include/cglm/box.h src/Include/cglm/color.h \
+ src/Include/cglm/io.h src/Include/cglm/project.h \
+ src/Include/cglm/sphere.h src/Include/cglm/ease.h \
+ src/Include/cglm/curve.h src/Include/cglm/bezier.h src/transform.h \
+ src/vertex.h src/complex.h src/imgs/img.h
