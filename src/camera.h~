@@ -1,9 +1,0 @@
-#ifndef CAMERA_H_
-#define CAMERA_H_
-
-#include "context.h"
-
-
-
-
-#endif // CAMERA_H_

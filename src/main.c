@@ -4,13 +4,16 @@
 #include "context.h"
 #include "objects.h"
 #include "complex.h"
-#include "imgs/img.h"
+#include "imgs/train.h"
 #include <string.h>
-#include "camera.h"
+
 
 float time=0;
 int pos =0;
-int __key=1;
+int __keyc=1;
+int __keySpace=1;
+int hideDrawing=0;
+int hideCircles=0;
 
 int
 main(int argc, char **argv){
@@ -18,9 +21,9 @@ main(int argc, char **argv){
   if(!initContext()) return -1;  
 
   // Setup coords
-  int skip=1;
+  int skip=6;
   int verticesSize = sizeof(drawing)/(sizeof(float)*2);
-  int NUM_OF_LINES = (verticesSize);
+  int NUM_OF_LINES = (verticesSize)-4165;
   
   float path[NUM_OF_LINES][2];
   for(int i=0;i<NUM_OF_LINES;i++)
@@ -28,13 +31,12 @@ main(int argc, char **argv){
   struct Complex coords[NUM_OF_LINES];
   int j, i;
   for(i=0, j=0;i<verticesSize;j++,i+=skip){
+    coords[j]=(struct Complex){drawing[i][0], drawing[i][1], 0, 0};/*
     coords[j]=(struct Complex){
 			       (2.f*(drawing[i][0]+.5f)-1)/(float)WIDTH,
 			       (2.f*(drawing[i][1]+.5f)-1)/(float)HEIGHT,
-			       0, 0};
-    printf("%f - %f\n",drawing[i][0], (2.f*(drawing[i][0]+.5f)-1)/(float)WIDTH);
+			       0, 0};*/
   }
-  printf("%i, %i\n", i, j);
   struct Complex waveVertices[NUM_OF_LINES];
   dft(waveVertices, coords, NUM_OF_LINES);
 
@@ -72,20 +74,20 @@ main(int argc, char **argv){
   while(!contextShouldClose()){
     clearContext();
 
-    // -----------CONTROL--------
-    if(isKeyRelease(KEY(A)))
-      __key=1;
-    if(isKeyRelease(KEY(D)))
-      __key=1;
-    if(isKeyPress(KEY(W))){
-      toggleCircle(2);
-      __key=0;
+    // -------CONTROLS----------
+        if(isKeyRelease(KEY(SPACE)))
+      __keySpace=1;
+    if(isKeyRelease(KEY(C)))
+      __keyc=1;
+    if(isKeyPress(KEY(C))&&__keyc){
+      hideCircles=hideCircles?0:1;
+      __keyc=0;
     }
-    if(isKeyPress(KEY(S))){
-      __key=0;
-      printf("f\n");
+    if(isKeyPress(KEY(SPACE))&&__keySpace){
+      hideDrawing=hideDrawing?0:1;
+      __keySpace=0;
     }
-    
+
     // -----------DRAW----------
     // Big circle
     float x, y;
@@ -97,7 +99,8 @@ main(int argc, char **argv){
       float n= freq * time + phase;
       // Circle
       translate(&circles[i]._transform, (vec3){x, y, -1});
-      drawPolygon(&circles[i], &circleShader);    
+      if(!hideCircles)
+	drawPolygon(&circles[i], &circleShader);    
       // Line
       vec2 startPoint;
       vec2 endPoint;
@@ -109,24 +112,26 @@ main(int argc, char **argv){
     			    {endPoint[0], endPoint[1], -1.f}};
       updateVertices(&circleLines[i], points, 2);
       translate(&circleLines[i]._transform, circles[i]._transform._location);
-      drawPolygon(&circleLines[i], &lineShader);
+      if(!hideCircles)
+	drawPolygon(&circleLines[i], &lineShader);
       
       x += radius*cos(n);
       y += radius*sin(n);
     }
 
     // wave
-    char vertex[32];
+    char uniformName[32];
     if(pos==NUM_OF_LINES)pos=0;
     path[pos][0]=x;
     path[pos++][1]=y;
     for(int i=0;i<NUM_OF_LINES;i++){
-      sprintf(vertex, "verticesX[%i]", i);
-      setFloat(&waveShader, vertex, 2*(path[i][0]/WIDTH)-1);
-      sprintf(vertex, "verticesY[%i]", i);
-      setFloat(&waveShader, vertex, 2*(path[i][1]/HEIGHT)-1);
+      sprintf(uniformName, "verticesX[%i]", i);
+      setFloat(&waveShader, uniformName, 2*(path[i][0]/WIDTH)-1);
+      sprintf(uniformName, "verticesY[%i]", i);
+      setFloat(&waveShader, uniformName, 2*(path[i][1]/HEIGHT)-1);
     }
-    drawPolygon(&wave, &waveShader);
+    if(!hideDrawing)
+      drawPolygon(&wave, &waveShader);
 
     float dt = 2 * M_PI / NUM_OF_LINES;
     time += dt;
