@@ -35,4 +35,4 @@ main.o: src/main.c src/context.h c:\mingw\include\stdio.h \
  src/Include/cglm/io.h src/Include/cglm/project.h \
  src/Include/cglm/sphere.h src/Include/cglm/ease.h \
  src/Include/cglm/curve.h src/Include/cglm/bezier.h src/transform.h \
- src/vertex.h src/complex.h src/imgs/img.h
+ src/vertex.h src/complex.h src/imgs/img.h src/camera.h

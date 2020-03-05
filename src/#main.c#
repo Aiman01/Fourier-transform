@@ -75,15 +75,17 @@ main(int argc, char **argv){
     // -----------CONTROL--------
     if(isKeyRelease(KEY(A)))
       __key=1;
-    if(isKeyRelease(KEY(D)))
-      __key=1;
+
     if(isKeyPress(KEY(W))){
-      toggleCircle(2);
-      __key=0;
     }
     if(isKeyPress(KEY(S))){
-      __key=0;
-      printf("f\n");
+    }
+    if(isKeyPress(KEY(A))){
+    }
+    if(isKeyPress(KEY(D))){
+    }
+    if(isKeyPress(KEY(SPACE))){
+      toggleCircle(
     }
     
     // -----------DRAW----------
